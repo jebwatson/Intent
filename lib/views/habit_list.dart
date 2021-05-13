@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intent/models/Habit.dart';
-import 'package:intent/providers/HabitProvider.dart';
-import 'package:intent/views/HabitCard.dart';
+import 'package:intent/models/habit.dart';
+import 'package:intent/repositories/habits/habit_repository.dart';
+import 'package:intent/views/habit_card.dart';
 
 class HabitsList extends StatefulWidget {
   final List<Habit> _habits;
 
-  HabitsList({Key? key, required HabitProvider habitProvider})
+  HabitsList({Key? key, required HabitRepository habitProvider})
       : _habits = habitProvider.getHabits(),
         super(key: key);
 

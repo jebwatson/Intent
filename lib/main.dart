@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intent/providers/DummyHabitProvider.dart';
-import 'package:intent/providers/HabitProvider.dart';
-import 'package:intent/views/HabitList.dart';
+import 'package:intent/repositories/habits/habit_repository.dart';
+import 'package:intent/repositories/habits/dummy_habit_repo.dart';
+import 'package:intent/views/habit_list.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    Provider<HabitProvider>(create: (_) => DummyHabitProvider()),
+    Provider<HabitRepository>(create: (_) => DummyHabitRepo()),
   ], child: IntentApp()));
 }
 
@@ -17,7 +17,7 @@ class IntentApp extends StatelessWidget {
     return MaterialApp(
       title: 'Intent',
       theme: ThemeData.dark(),
-      home: HabitsList(habitProvider: context.read<HabitProvider>()),
+      home: HabitsList(habitProvider: context.read<HabitRepository>()),
     );
   }
 }
