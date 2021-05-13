@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intent/bloc/habits_bloc_bloc.dart';
 import 'package:intent/views/widgets/error_message.dart';
+import 'package:intent/views/widgets/loading_spinner.dart';
 
 import 'habit_card.dart';
 
@@ -20,11 +21,7 @@ class HabitsList extends StatefulWidget {
   }
 
   Widget _displayLoading(HabitsBlocState state) {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return displayLoadingSpinner();
   }
 
   Widget _displayHabits(HabitsBlocState state) {
