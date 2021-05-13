@@ -12,7 +12,7 @@ class HabitCard extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.repeat),
         title: Text(habit.title),
-        subtitle: Text(habit.timestamp.toString()),
+        subtitle: Text(habit.timestamp),
       ),
     );
   }

@@ -5,6 +5,8 @@ class DummyHabitRepo implements HabitRepository {
   @override
   List<Habit> getHabits() {
     return List<Habit>.generate(
-        15, (index) => new Habit("Habit Title", DateTime.now()));
+        15,
+        (index) =>
+            new Habit((index + 1).toString(), "Habit Title", DateTime.now()));
   }
 }
