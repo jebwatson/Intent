@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intent/models/Habit.dart';
+import 'package:intent/providers/HabitProvider.dart';
 import 'package:intent/views/HabitCard.dart';
 
 class HabitsList extends StatefulWidget {
-  final List<Habit> _habits = List<Habit>.generate(
-      15, (index) => new Habit("Habit Title", DateTime.now()));
+  final List<Habit> _habits;
 
-  HabitsList({Key? key}) : super(key: key);
+  HabitsList({Key? key, required HabitProvider habitProvider})
+      : _habits = habitProvider.getHabits(),
+        super(key: key);
 
   @override
   _HabitsListState createState() => _HabitsListState();
