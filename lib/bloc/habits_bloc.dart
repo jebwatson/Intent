@@ -6,15 +6,15 @@ import 'package:equatable/equatable.dart';
 import 'package:intent/models/habit.dart';
 import 'package:intent/repositories/habits/habit_repository.dart';
 
-part 'habits_bloc_event.dart';
-part 'habits_bloc_state.dart';
+part 'habits_event.dart';
+part 'habits_state.dart';
 
-class HabitsBlocBloc extends Bloc<HabitsBlocEvent, HabitsBlocState> {
+class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
   final Map<Type, Function> eventToStateMap = HashMap();
   final HabitRepository _habitRepository;
   StreamSubscription? _habitsSubsciption;
 
-  HabitsBlocBloc({required habitRepository})
+  HabitsBloc({required habitRepository})
       : _habitRepository = habitRepository,
         super(HabitsLoading()) {
     eventToStateMap.addAll({
@@ -24,22 +24,21 @@ class HabitsBlocBloc extends Bloc<HabitsBlocEvent, HabitsBlocState> {
   }
 
   @override
-  Stream<HabitsBlocState> mapEventToState(
-    HabitsBlocEvent event,
+  Stream<HabitsState> mapEventToState(
+    HabitsEvent event,
   ) async* {
     yield* eventToStateMap[event.runtimeType]?.call(event) ?? HabitsError();
   }
 
-  Stream<HabitsBlocState> _handleHabitsLoadRequestedEvent(
-      HabitsBlocEvent event) async* {
+  Stream<HabitsState> _handleHabitsLoadRequestedEvent(
+      HabitsEvent event) async* {
     _habitsSubsciption?.cancel();
     _habitsSubsciption = _habitRepository.habits().listen((habits) {
       add(HabitsUpdated(habits));
     });
   }
 
-  Stream<HabitsBlocState> _handleHabitsUpdatedEvent(
-      HabitsBlocEvent event) async* {
+  Stream<HabitsState> _handleHabitsUpdatedEvent(HabitsEvent event) async* {
     yield HabitsLoaded((event as HabitsUpdated).habits);
   }
 

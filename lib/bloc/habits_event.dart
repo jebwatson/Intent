@@ -1,17 +1,17 @@
-part of 'habits_bloc_bloc.dart';
+part of 'habits_bloc.dart';
 
-abstract class HabitsBlocEvent extends Equatable {
-  const HabitsBlocEvent();
+abstract class HabitsEvent extends Equatable {
+  const HabitsEvent();
 
   @override
   List<Object> get props => [];
 }
 
 /// Tells the bloc that it needs to load habits from the repository
-class HabitsLoadRequested extends HabitsBlocEvent {}
+class HabitsLoadRequested extends HabitsEvent {}
 
 /// Tells the bloc that the habits list has completed an update
-class HabitsUpdated extends HabitsBlocEvent {
+class HabitsUpdated extends HabitsEvent {
   final List<Habit> habits;
   HabitsUpdated(this.habits);
 }

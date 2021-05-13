@@ -1,15 +1,15 @@
-part of 'habits_bloc_bloc.dart';
+part of 'habits_bloc.dart';
 
-abstract class HabitsBlocState extends Equatable {
-  const HabitsBlocState();
+abstract class HabitsState extends Equatable {
+  const HabitsState();
 
   @override
   List<Object> get props => [];
 }
 
-class HabitsLoading extends HabitsBlocState {}
+class HabitsLoading extends HabitsState {}
 
-class HabitsLoaded extends HabitsBlocState {
+class HabitsLoaded extends HabitsState {
   final List<Habit> habits;
 
   const HabitsLoaded([this.habits = const []]);
@@ -21,4 +21,4 @@ class HabitsLoaded extends HabitsBlocState {
   String toString() => 'HabitsLoadSuccess { habits: $habits }';
 }
 
-class HabitsError extends HabitsBlocState {}
+class HabitsError extends HabitsState {}

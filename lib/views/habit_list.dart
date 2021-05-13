@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intent/bloc/habits_bloc_bloc.dart';
+import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
 
@@ -20,11 +20,11 @@ class HabitsList extends StatefulWidget {
     });
   }
 
-  Widget _displayLoading(HabitsBlocState state) {
+  Widget _displayLoading(HabitsState state) {
     return displayLoadingSpinner();
   }
 
-  Widget _displayHabits(HabitsBlocState state) {
+  Widget _displayHabits(HabitsState state) {
     final habits = (state as HabitsLoaded).habits;
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -34,7 +34,7 @@ class HabitsList extends StatefulWidget {
     );
   }
 
-  Widget _displayError(HabitsBlocState state) {
+  Widget _displayError(HabitsState state) {
     return displayErrorMessage();
   }
 
@@ -46,7 +46,7 @@ class _HabitsListState extends State<HabitsList> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: BlocBuilder<HabitsBlocBloc, HabitsBlocState>(
+      child: BlocBuilder<HabitsBloc, HabitsState>(
         builder: (context, state) {
           return widget.mapStateToWidget[state.runtimeType]?.call(state) ??
               displayErrorMessage();
