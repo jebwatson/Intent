@@ -55,6 +55,15 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Playfair
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
+        - asset: fonts/PlayfairDisplay-Italic.ttf
+        - asset: fonts/PlayfairDisplay-Bold.ttf
+        - asset: fonts/PlayfairDisplay-VariableFont_wght.ttf
+        - asset: fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

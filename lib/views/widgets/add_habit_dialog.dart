@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intent/constants.dart';
+import 'package:intent/views/widgets/submission_button.dart';
 
 class AddHabitDialog extends StatelessWidget {
   const AddHabitDialog({Key? key}) : super(key: key);
@@ -19,13 +20,19 @@ class AddHabitDialog extends StatelessWidget {
         children: [
           // Title area
           Container(
-            padding: EdgeInsets.all(defaultPadding),
-            child: Text("Let's start a new habit!"),
+            padding: EdgeInsets.only(top: defaultPadding + 20),
+            child: Text(
+              "Let's start a new habit!",
+              style: withHeaderTextStyle(),
+            ),
           ),
           // Content area
           Container(
             padding: EdgeInsets.all(defaultPadding),
-            child: Text("Add new habit controls go here..."),
+            child: Text(
+              "Add new habit controls go here...",
+              style: withDefaultTextStyle(),
+            ),
           ),
           // Button area
           Container(
@@ -33,22 +40,8 @@ class AddHabitDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TextButton(
-                  child: Text("Cancel"),
-                  onPressed: () {
-                    // Route back (or close dialog?)
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text("Submit"),
-                  onPressed: () {
-                    // Perform validation?
-                    // Save habit if valid
-                    // Route back to habits (or close dialog?)
-                    Navigator.pop(context);
-                  },
-                ),
+                SubmissionButton("Cancel"),
+                SubmissionButton("Submit"),
               ],
             ),
           ),
