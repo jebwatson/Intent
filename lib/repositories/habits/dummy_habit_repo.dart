@@ -9,7 +9,7 @@ class DummyHabitRepo implements HabitRepository {
 
   @override
   Stream<List<Habit>> habits() async* {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 0));
     yield _habits;
   }
 }
