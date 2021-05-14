@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intent/constants.dart';
 
 class AddHabitDialog extends StatelessWidget {
   const AddHabitDialog({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class AddHabitDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(defaultBorderRadius),
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
@@ -18,20 +19,17 @@ class AddHabitDialog extends StatelessWidget {
         children: [
           // Title area
           Container(
-            constraints: BoxConstraints(maxHeight: 100),
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(defaultPadding),
             child: Text("Let's start a new habit!"),
           ),
           // Content area
           Container(
-            constraints: BoxConstraints(maxHeight: 100),
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(defaultPadding),
             child: Text("Add new habit controls go here..."),
           ),
           // Button area
           Container(
-            constraints: BoxConstraints(maxHeight: 100),
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(defaultPadding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
