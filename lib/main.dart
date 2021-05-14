@@ -29,21 +29,36 @@ class IntentApp extends StatelessWidget {
     return MaterialApp(
       title: 'Intent',
       theme: ThemeData.dark(),
-      home: FutureBuilder(
-          future: Firebase.initializeApp(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) return displayErrorMessage();
-            if (snapshot.connectionState != ConnectionState.done)
-              return displayLoadingSpinner();
-            return Scaffold(
-              body: HabitsList(),
-              floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    // Open the add habit dialog
-                  },
-                  child: const Icon(Icons.add)),
-            );
-          }),
+      home: kReleaseMode ? useReleaseViews() : useDebugViews(),
     );
   }
+}
+
+Widget useDebugViews() {
+  return Scaffold(
+    body: HabitsList(),
+    floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Open the add habit dialog
+        },
+        child: const Icon(Icons.add)),
+  );
+}
+
+Widget useReleaseViews() {
+  return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) return displayErrorMessage();
+        if (snapshot.connectionState != ConnectionState.done)
+          return displayLoadingSpinner();
+        return Scaffold(
+          body: HabitsList(),
+          floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // Open the add habit dialog
+              },
+              child: const Icon(Icons.add)),
+        );
+      });
 }
