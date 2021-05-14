@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intent/bloc/habits_bloc.dart';
+import 'package:intent/intent_theme.dart';
 import 'package:intent/repositories/habits/dummy_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
 import 'package:intent/views/widgets/add_habit_dialog.dart';
@@ -25,7 +26,7 @@ void main() {
       ],
       child: MaterialApp(
         title: 'Intent',
-        theme: ThemeData.dark(),
+        theme: IntentTheme.darkTheme,
         home: IntentApp(),
       )));
 }

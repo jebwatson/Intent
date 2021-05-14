@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intent/bloc/habits_bloc.dart';
+import 'package:intent/constants.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
 
@@ -46,11 +47,15 @@ class _HabitsListState extends State<HabitsList> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: BlocBuilder<HabitsBloc, HabitsState>(
-        builder: (context, state) {
-          return widget.mapStateToWidget[state.runtimeType]?.call(state) ??
-              displayErrorMessage();
-        },
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Container(
+        padding: EdgeInsets.all(LayoutValues.defaultPadding),
+        child: BlocBuilder<HabitsBloc, HabitsState>(
+          builder: (context, state) {
+            return widget.mapStateToWidget[state.runtimeType]?.call(state) ??
+                displayErrorMessage();
+          },
+        ),
       ),
     );
   }

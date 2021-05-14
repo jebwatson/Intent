@@ -10,43 +10,54 @@ class AddHabitDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultBorderRadius),
+        borderRadius: BorderRadius.circular(LayoutValues.defaultBorderRadius),
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
       child: Material(
-          child: Column(
-        children: [
-          // Title area
-          Container(
-            padding: EdgeInsets.only(top: defaultPadding + 20),
-            child: Text(
-              "Let's start a new habit!",
-              style: withHeaderTextStyle(),
+        color: Theme.of(context).primaryColor,
+        child: Stack(
+          children: [
+            // Title area
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(top: LayoutValues.defaultPadding + 20),
+                child: Text(
+                  "Let's start a new habit!",
+                  style: TextStyles.header,
+                ),
+              ),
             ),
-          ),
-          // Content area
-          Container(
-            padding: EdgeInsets.all(defaultPadding),
-            child: Text(
-              "Add new habit controls go here...",
-              style: withDefaultTextStyle(),
+            // Content area
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(LayoutValues.defaultPadding),
+                child: Text(
+                  "Add new habit controls go here...",
+                  style: TextStyles.defaultText,
+                ),
+              ),
             ),
-          ),
-          // Button area
-          Container(
-            padding: EdgeInsets.all(defaultPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SubmissionButton("Cancel"),
-                SubmissionButton("Submit"),
-              ],
+            // Button area
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding:
+                    EdgeInsets.only(bottom: LayoutValues.defaultPadding + 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SubmissionButton("Cancel"),
+                    SubmissionButton("Submit"),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }

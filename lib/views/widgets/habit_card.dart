@@ -9,8 +9,12 @@ class HabitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).primaryColor,
       child: ListTile(
-        leading: Icon(Icons.repeat),
+        leading: Icon(
+          Icons.repeat,
+          color: Theme.of(context).iconTheme.color,
+        ),
         title: Text(habit.title),
         subtitle: Text(habit.timestamp),
       ),

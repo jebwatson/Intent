@@ -10,13 +10,21 @@ class SubmissionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: LayoutValues.defaultPadding,
+            horizontal: LayoutValues.defaultPadding + 40,
+          ),
           child: Text(
             text,
-            style: withButtonTextStyle(),
-          )),
+            style: TextStyles.button,
+          ),
+        ),
+        style: ButtonStyles.dialog,
+      ),
     );
   }
 }
