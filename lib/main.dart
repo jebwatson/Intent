@@ -1,12 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intent/providers/DummyHabitProvider.dart';
-import 'package:intent/providers/HabitProvider.dart';
-import 'package:intent/views/HabitList.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intent/bloc/habits_bloc.dart';
+import 'package:intent/repositories/habits/firestore_habit_repo.dart';
+import 'package:intent/views/habit_list.dart';
+import 'package:intent/views/widgets/error_message.dart';
+import 'package:intent/views/widgets/loading_spinner.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    Provider<HabitProvider>(create: (_) => DummyHabitProvider()),
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider<HabitsBloc>(
+      create: (context) {
+        return HabitsBloc(habitRepository: FirebaseHabitRepo())
+          ..add(HabitsLoadRequested());
+      },
+    ),
   ], child: IntentApp()));
 }
 
@@ -17,7 +25,14 @@ class IntentApp extends StatelessWidget {
     return MaterialApp(
       title: 'Intent',
       theme: ThemeData.dark(),
-      home: HabitsList(habitProvider: context.read<HabitProvider>()),
+      home: FutureBuilder(
+          future: Firebase.initializeApp(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) return displayErrorMessage();
+            if (snapshot.connectionState != ConnectionState.done)
+              return displayLoadingSpinner();
+            return HabitsList();
+          }),
     );
   }
 }

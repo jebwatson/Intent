@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intent/models/Habit.dart';
+import 'package:intent/models/habit.dart';
 
 class HabitCard extends StatelessWidget {
   final Habit habit;
@@ -12,7 +12,7 @@ class HabitCard extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.repeat),
         title: Text(habit.title),
-        subtitle: Text(habit.timestamp.toString()),
+        subtitle: Text(habit.timestamp),
       ),
     );
   }
