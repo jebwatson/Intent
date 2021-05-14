@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
-import 'package:intent/views/habit_list.dart';
+import 'package:intent/views/widgets/habit_list.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
 
@@ -31,7 +31,14 @@ class IntentApp extends StatelessWidget {
             if (snapshot.hasError) return displayErrorMessage();
             if (snapshot.connectionState != ConnectionState.done)
               return displayLoadingSpinner();
-            return HabitsList();
+            return Scaffold(
+              body: HabitsList(),
+              floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    // Open the add habit dialog
+                  },
+                  child: const Icon(Icons.add)),
+            );
           }),
     );
   }

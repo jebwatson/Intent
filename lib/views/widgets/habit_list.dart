@@ -7,7 +7,7 @@ import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
 
-import 'widgets/habit_card.dart';
+import 'habit_card.dart';
 
 class HabitsList extends StatefulWidget {
   final Map<Type, Function> mapStateToWidget = HashMap();
