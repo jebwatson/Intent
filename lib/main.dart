@@ -9,13 +9,15 @@ import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
 import 'package:flutter/foundation.dart';
 
+bool get releaseMode => kReleaseMode;
+
 void main() {
   runApp(MultiBlocProvider(providers: [
     BlocProvider<HabitsBloc>(
       create: (context) {
         return HabitsBloc(
             habitRepository:
-                kReleaseMode ? FirebaseHabitRepo() : DummyHabitRepo())
+                releaseMode ? FirebaseHabitRepo() : DummyHabitRepo())
           ..add(HabitsLoadRequested());
       },
     ),
@@ -29,13 +31,13 @@ class IntentApp extends StatelessWidget {
     return MaterialApp(
       title: 'Intent',
       theme: ThemeData.dark(),
-      home: kReleaseMode ? useReleaseViews() : useDebugViews(),
+      home: showHomeView(),
     );
   }
 }
 
-Widget useDebugViews() {
-  return Scaffold(
+Widget showHomeView() {
+  final Widget homeView = Scaffold(
     body: HabitsList(),
     floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -43,22 +45,17 @@ Widget useDebugViews() {
         },
         child: const Icon(Icons.add)),
   );
-}
 
-Widget useReleaseViews() {
-  return FutureBuilder(
-      future: Firebase.initializeApp(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) return displayErrorMessage();
-        if (snapshot.connectionState != ConnectionState.done)
-          return displayLoadingSpinner();
-        return Scaffold(
-          body: HabitsList(),
-          floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                // Open the add habit dialog
-              },
-              child: const Icon(Icons.add)),
-        );
-      });
+  if (releaseMode) {
+    return FutureBuilder(
+        future: Firebase.initializeApp(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) return displayErrorMessage();
+          if (snapshot.connectionState != ConnectionState.done)
+            return displayLoadingSpinner();
+          return homeView;
+        });
+  }
+
+  return homeView;
 }
