@@ -5,7 +5,7 @@ import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/intent_theme.dart';
 import 'package:intent/repositories/habits/dummy_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
-import 'package:intent/views/widgets/add_habit_dialog.dart';
+import 'package:intent/views/widgets/add_item_dialog.dart';
 import 'package:intent/views/widgets/habit_list.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
@@ -51,7 +51,7 @@ class IntentApp extends StatelessWidget {
             // Open the add habit dialog
             showDialog(
               context: context,
-              builder: (context) => AddHabitDialog(),
+              builder: (context) => AddItemDialog("Let's start a new habit!"),
             );
           },
           child: const Icon(Icons.add)),

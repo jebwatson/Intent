@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:intent/constants.dart';
 import 'package:intent/views/widgets/submission_button.dart';
 
-class AddHabitDialog extends StatelessWidget {
-  const AddHabitDialog({Key? key}) : super(key: key);
+class AddItemDialog extends StatelessWidget {
+  final String title;
+
+  const AddItemDialog(this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AddHabitDialog extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(top: LayoutValues.defaultPadding + 20),
                 child: Text(
-                  "Let's start a new habit!",
+                  title,
                   style: TextStyles.header,
                 ),
               ),
