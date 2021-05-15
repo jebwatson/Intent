@@ -1,11 +1,17 @@
-import 'dart:js';
-
-import 'package:direct_select_flutter/direct_select_item.dart';
-import 'package:direct_select_flutter/direct_select_list.dart';
+import 'package:direct_select/direct_select.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intent/constants.dart';
 
 class ItemPicker extends StatefulWidget {
-  final List<String> items = [
+  ItemPicker({Key? key}) : super(key: key);
+
+  @override
+  _ItemPickerState createState() => _ItemPickerState();
+}
+
+class _ItemPickerState extends State<ItemPicker> {
+  final items = [
     'Annual',
     'Monthly',
     'Weekly',
@@ -15,28 +21,66 @@ class ItemPicker extends StatefulWidget {
     'Custom',
   ];
 
-  ItemPicker({Key? key}) : super(key: key);
+  var selectedIndex = 0;
 
-  @override
-  _ItemPickerState createState() => _ItemPickerState();
-}
+  List<Widget> _buildItems() {
+    return items.map((item) => Text(item)).toList();
+  }
 
-class _ItemPickerState extends State<ItemPicker> {
   @override
   Widget build(BuildContext context) {
-    return DirectSelectList(
-        values: widget.items,
-        itemBuilder: (String item) {
-          return getItem(item);
-        });
+    return DirectSelect(
+        items: _buildItems(),
+        onSelectedItemChanged: (index) {
+          setState(() {
+            selectedIndex = index ?? 0;
+          });
+        },
+        itemExtent: 35.0,
+        child: MySelectionItem(
+          title: "What kind of habit is this?",
+          isForList: false,
+        ));
   }
 }
 
-DirectSelectItem<String> getItem(String value) {
-  return DirectSelectItem(
-      itemHeight: 56,
-      value: value,
-      itemBuilder: (context, value) {
-        return Text(value);
-      });
+class MySelectionItem extends StatelessWidget {
+  final String title;
+  final bool isForList;
+
+  const MySelectionItem({Key? key, required this.title, this.isForList = true})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60.0,
+      child: isForList
+          ? Padding(
+              child: _buildItem(context),
+              padding: EdgeInsets.all(10.0),
+            )
+          : Card(
+              color: CustomColors.darkItemBackground,
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Stack(
+                children: <Widget>[
+                  _buildItem(context),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(Icons.arrow_drop_down),
+                  )
+                ],
+              ),
+            ),
+    );
+  }
+
+  _buildItem(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: Text(title),
+    );
+  }
 }

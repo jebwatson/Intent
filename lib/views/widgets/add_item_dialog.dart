@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:intent/constants.dart';
 import 'package:intent/views/widgets/submission_button.dart';
 
+import 'item_picker.dart';
+
 class AddItemDialog extends StatelessWidget {
   final String title;
 
@@ -34,12 +36,14 @@ class AddItemDialog extends StatelessWidget {
             ),
             // Content area
             Center(
-              child: Padding(
-                padding: EdgeInsets.all(LayoutValues.defaultPadding),
-                child: Text(
-                  "Add new habit controls go here...",
-                  style: TextStyles.defaultText,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    "What kind of habit is this?",
+                    style: TextStyles.defaultText,
+                  ),
+                  ItemPicker(),
+                ],
               ),
             ),
             // Button area
