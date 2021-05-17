@@ -19,7 +19,7 @@ class AddItemDialog extends StatelessWidget {
       backgroundColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
       child: SizedBox(
-        height: 400,
+        height: 320,
         width: MediaQuery.of(context).size.width * .9,
         child: Material(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -36,6 +36,7 @@ class AddItemDialog extends StatelessWidget {
                   style: TextStyles.header,
                 ),
               ),
+              // Title
               Container(
                 margin: EdgeInsets.symmetric(
                   vertical: LayoutValues.defaultPadding,
@@ -56,6 +57,7 @@ class AddItemDialog extends StatelessWidget {
                   },
                 ),
               ),
+              // Type Picker
               Container(
                 margin: EdgeInsets.symmetric(
                   vertical: LayoutValues.defaultPadding,
@@ -63,8 +65,9 @@ class AddItemDialog extends StatelessWidget {
                 ),
                 child: ItemPicker(),
               ),
+              // Buttons
               Container(
-                margin: EdgeInsets.only(top: LayoutValues.defaultPadding + 90),
+                margin: EdgeInsets.only(top: LayoutValues.defaultPadding + 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

@@ -3,7 +3,7 @@ import 'package:intent/repositories/habits/habit_repository.dart';
 
 class DummyHabitRepo implements HabitRepository {
   final List<Habit> _habits = List<Habit>.generate(
-      15,
+      2,
       (index) =>
           new Habit((index + 1).toString(), "Habit Title", DateTime.now()));
 
