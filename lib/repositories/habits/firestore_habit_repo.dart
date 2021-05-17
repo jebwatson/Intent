@@ -14,4 +14,12 @@ class FirebaseHabitRepo implements HabitRepository {
           .toList();
     });
   }
+
+  @override
+  Future<void> addHabit(HabitEntity habit) {
+    return FirebaseFirestore.instance
+        .collection('habits')
+        .doc(habit.id)
+        .set(habit.toJson());
+  }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/constants.dart';
+import 'package:intent/models/habit.dart';
 import 'package:intent/views/widgets/item_picker.dart';
 import 'package:intent/views/widgets/submission_button.dart';
 
@@ -11,6 +14,8 @@ class AddItemDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String habitName = '';
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(LayoutValues.defaultBorderRadius),
@@ -54,6 +59,7 @@ class AddItemDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                   onChanged: (value) {
                     // TODO: validation
+                    habitName = value;
                   },
                 ),
               ),
@@ -72,7 +78,14 @@ class AddItemDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SubmissionButton("Cancel"),
-                    SubmissionButton("Submit"),
+                    SubmissionButton(
+                      "Submit",
+                      pressed: () {
+                        context
+                            .read<HabitsBloc>()
+                            .add(HabitAdded(Habit(title: habitName)));
+                      },
+                    ),
                   ],
                 ),
               ),

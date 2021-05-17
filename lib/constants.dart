@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // Release vs Debug
-bool get releaseMode => kReleaseMode;
+bool get releaseMode => true;
 
 // View specifications
 class LayoutValues {

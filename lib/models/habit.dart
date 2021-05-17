@@ -3,20 +3,35 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:intent/entities/habit_entity.dart';
 
 class Habit {
-  final String id;
+  final String? id;
   final String title;
   final DateTime _timestamp;
+  final int? listPosition;
 
-  Habit(this.id, this.title, this._timestamp);
+  Habit({
+    String? id,
+    required String title,
+    DateTime? timestamp,
+    int? listPosition,
+  })  : this.id = id ?? id,
+        this.title = title,
+        this._timestamp = timestamp ?? DateTime.now(),
+        this.listPosition = listPosition;
 
   String get timestamp =>
       DateTimeFormat.format(_timestamp, format: DateTimeFormats.american);
 
-  Habit copyWith({String? id, String? title, DateTime? timestamp}) {
+  Habit copyWith({
+    String? id,
+    String? title,
+    DateTime? timestamp,
+    int? listPosition,
+  }) {
     return Habit(
-      id ?? this.id,
-      title ?? this.title,
-      timestamp ?? this._timestamp,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      timestamp: timestamp ?? this._timestamp,
+      listPosition: listPosition ?? this.listPosition,
     );
   }
 
@@ -26,14 +41,18 @@ class Habit {
 
   static Habit fromEntity(HabitEntity entity) {
     return Habit(
-      entity.id,
-      entity.title,
-      entity.timestamp.toDate(),
+      id: entity.id,
+      title: entity.title,
+      timestamp: entity.timestamp.toDate(),
     );
   }
 
   @override
-  int get hashCode => id.hashCode ^ title.hashCode ^ _timestamp.hashCode;
+  int get hashCode =>
+      id.hashCode ^
+      title.hashCode ^
+      _timestamp.hashCode ^
+      listPosition.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -42,10 +61,11 @@ class Habit {
           runtimeType == other.runtimeType &&
           id == other.id &&
           title == other.title &&
-          _timestamp == other._timestamp;
+          _timestamp == other._timestamp &&
+          listPosition == other.listPosition;
 
   @override
   String toString() {
-    return 'Habit { id: $id, title: $title, timestamp: $_timestamp }';
+    return 'Habit { id: $id, title: $title, timestamp: $_timestamp, listPosition: $listPosition, }';
   }
 }
