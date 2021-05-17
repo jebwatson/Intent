@@ -19,7 +19,7 @@ class AddItemDialog extends StatelessWidget {
       backgroundColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
       child: Material(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Stack(
           children: [
             // Title area

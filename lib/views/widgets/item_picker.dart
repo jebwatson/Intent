@@ -54,18 +54,33 @@ class HabitTypeSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isForList
-        ? Text(title)
-        : Card(
-            color: Theme.of(context).primaryColor,
-            child: Stack(
-              children: [
-                Text(title),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Icon(Icons.arrow_drop_down),
-                )
-              ],
-            ));
+    return SizedBox(
+      height: 60.0,
+      child: isForList
+          ? Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: _buildItem(context),
+            )
+          : Card(
+              margin: EdgeInsets.symmetric(horizontal: 20.0),
+              color: Theme.of(context).primaryColor,
+              child: Stack(
+                children: [
+                  _buildItem(context),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(Icons.arrow_drop_down),
+                  )
+                ],
+              )),
+    );
+  }
+
+  _buildItem(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: Text(title, style: TextStyle(color: Colors.white, fontSize: 14.0)),
+    );
   }
 }
