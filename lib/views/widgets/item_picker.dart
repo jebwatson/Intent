@@ -29,7 +29,8 @@ class _ItemPickerState extends State<ItemPicker> {
   @override
   Widget build(BuildContext context) {
     return DirectSelect(
-        itemExtent: 35.0,
+        itemExtent: 50.0,
+        mode: DirectSelectMode.tap,
         backgroundColor: Theme.of(context).primaryColor,
         selectedIndex: selectedIndex,
         items: _buildItems(),
@@ -80,7 +81,13 @@ class HabitTypeSelection extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
-      child: Text(title, style: TextStyle(color: Colors.white, fontSize: 14.0)),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14.0,
+        ),
+      ),
     );
   }
 }
