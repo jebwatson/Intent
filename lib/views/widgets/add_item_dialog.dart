@@ -18,56 +18,53 @@ class AddItemDialog extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
-      child: Material(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Column(
-                children: [
-                  // Title area
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: LayoutValues.defaultPadding + 20,
-                        bottom: LayoutValues.defaultPadding),
-                    child: Text(
-                      title,
-                      style: TextStyles.header,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: LayoutValues.defaultPadding,
-                      horizontal: LayoutValues.defaultPadding + 20,
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        labelText: 'Habit Name',
+      child: SizedBox(
+        height: 400,
+        width: MediaQuery.of(context).size.width * .9,
+        child: Material(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              // Title area
+              Padding(
+                padding: EdgeInsets.only(
+                    top: LayoutValues.defaultPadding + 20,
+                    bottom: LayoutValues.defaultPadding),
+                child: Text(
+                  title,
+                  style: TextStyles.header,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: LayoutValues.defaultPadding,
+                  horizontal: LayoutValues.defaultPadding + 20,
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Colors.white,
                       ),
                     ),
+                    labelText: 'Enter habit name',
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      vertical: LayoutValues.defaultPadding,
-                      horizontal: LayoutValues.defaultPadding,
-                    ),
-                    child: ItemPicker(),
-                  ),
-                ],
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    // TODO: validation
+                  },
+                ),
               ),
-            ),
-            // Button area
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    EdgeInsets.only(bottom: LayoutValues.defaultPadding + 30),
+              Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: LayoutValues.defaultPadding,
+                  horizontal: LayoutValues.defaultPadding,
+                ),
+                child: ItemPicker(),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: LayoutValues.defaultPadding + 90),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -76,8 +73,8 @@ class AddItemDialog extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
