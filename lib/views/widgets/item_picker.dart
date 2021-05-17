@@ -1,11 +1,16 @@
-import 'dart:js';
-
-import 'package:direct_select_flutter/direct_select_item.dart';
-import 'package:direct_select_flutter/direct_select_list.dart';
+import 'package:direct_select/direct_select.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ItemPicker extends StatefulWidget {
-  final List<String> items = [
+  ItemPicker({Key? key}) : super(key: key);
+
+  @override
+  _ItemPickerState createState() => _ItemPickerState();
+}
+
+class _ItemPickerState extends State<ItemPicker> {
+  final items = [
     'Annual',
     'Monthly',
     'Weekly',
@@ -15,28 +20,52 @@ class ItemPicker extends StatefulWidget {
     'Custom',
   ];
 
-  ItemPicker({Key? key}) : super(key: key);
+  int selectedIndex = 0;
 
-  @override
-  _ItemPickerState createState() => _ItemPickerState();
-}
+  List<Widget> _buildItems() {
+    return items.map((e) => HabitTypeSelection(e)).toList();
+  }
 
-class _ItemPickerState extends State<ItemPicker> {
   @override
   Widget build(BuildContext context) {
-    return DirectSelectList(
-        values: widget.items,
-        itemBuilder: (String item) {
-          return getItem(item);
+    return DirectSelect(
+        itemExtent: 35.0,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedIndex: selectedIndex,
+        items: _buildItems(),
+        child: HabitTypeSelection(
+          items[selectedIndex],
+          isForList: false,
+        ),
+        onSelectedItemChanged: (index) {
+          setState(() {
+            selectedIndex = index ?? 0;
+          });
         });
   }
 }
 
-DirectSelectItem<String> getItem(String value) {
-  return DirectSelectItem(
-      itemHeight: 56,
-      value: value,
-      itemBuilder: (context, value) {
-        return Text(value);
-      });
+class HabitTypeSelection extends StatelessWidget {
+  final title;
+  final isForList;
+
+  const HabitTypeSelection(this.title, {Key? key, this.isForList = true})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return isForList
+        ? Text(title)
+        : Card(
+            color: Theme.of(context).primaryColor,
+            child: Stack(
+              children: [
+                Text(title),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Icon(Icons.arrow_drop_down),
+                )
+              ],
+            ));
+  }
 }
