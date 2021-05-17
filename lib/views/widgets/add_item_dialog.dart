@@ -22,11 +22,11 @@ class AddItemDialog extends StatelessWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Stack(
           children: [
-            // Title area
             Align(
               alignment: Alignment.topCenter,
               child: Column(
                 children: [
+                  // Title area
                   Padding(
                     padding: EdgeInsets.only(
                         top: LayoutValues.defaultPadding + 20,
@@ -36,8 +36,27 @@ class AddItemDialog extends StatelessWidget {
                       style: TextStyles.header,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(LayoutValues.defaultPadding),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: LayoutValues.defaultPadding,
+                      horizontal: LayoutValues.defaultPadding + 20,
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        labelText: 'Habit Name',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: LayoutValues.defaultPadding,
+                      horizontal: LayoutValues.defaultPadding,
+                    ),
                     child: ItemPicker(),
                   ),
                 ],
