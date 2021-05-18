@@ -20,6 +20,7 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
     eventToStateMap.addAll({
       HabitsLoadRequested: _handleHabitsLoadRequestedEvent,
       HabitsUpdated: _handleHabitsUpdatedEvent,
+      HabitAdded: _handleHabitAddedEvent,
     });
   }
 
@@ -30,6 +31,8 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
     yield* eventToStateMap[event.runtimeType]?.call(event) ?? HabitsError();
   }
 
+  /// Sets up a subscription to the repositories habits stream
+  /// Issues update events each time the stream changes
   Stream<HabitsState> _handleHabitsLoadRequestedEvent(
       HabitsEvent event) async* {
     _habitsSubsciption?.cancel();
@@ -38,8 +41,17 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
     });
   }
 
+  /// Yields the habits loaded state each time an update event comes in
+  /// The habits loaded state contains the latest habits list
   Stream<HabitsState> _handleHabitsUpdatedEvent(HabitsEvent event) async* {
     yield HabitsLoaded((event as HabitsUpdated).habits);
+  }
+
+  /// First yields a loading state, then adds the new habit to the repo
+  /// When the new habit is added the stream subscription add an updated event
+  Stream<HabitsState> _handleHabitAddedEvent(HabitsEvent event) async* {
+    yield HabitsLoading();
+    _habitRepository.addHabit((event as HabitAdded).habit.toEntity());
   }
 
   void dispose() {

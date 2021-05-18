@@ -15,3 +15,8 @@ class HabitsUpdated extends HabitsEvent {
   final List<Habit> habits;
   HabitsUpdated(this.habits);
 }
+
+class HabitAdded extends HabitsEvent {
+  final Habit habit;
+  HabitAdded(this.habit);
+}

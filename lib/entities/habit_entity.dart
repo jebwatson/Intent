@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class HabitEntity extends Equatable {
-  final String id;
+  final String? id;
   final String title;
   final Timestamp timestamp;
 
@@ -10,7 +10,6 @@ class HabitEntity extends Equatable {
 
   Map<String, Object> toJson() {
     return {
-      'id': id,
       'title': title,
       'timestamp': timestamp,
     };
