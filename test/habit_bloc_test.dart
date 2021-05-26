@@ -82,9 +82,7 @@ void main() {
         return HabitsBloc(habitRepository: habitRepository)
           ..add(HabitsLoadRequested());
       },
-      act: (HabitsBloc bloc) {
-        bloc.add(HabitAdded(additionalHabit));
-      },
+      act: (HabitsBloc bloc) => bloc.add(HabitAdded(additionalHabit)),
       expect: () => [
         HabitsLoading(),
         HabitsLoaded(habits),
@@ -93,62 +91,24 @@ void main() {
   });
 
   group('HabitsUpdated', () {
-    final controller = StreamController<List<Habit>>.broadcast(sync: false);
-    List<Habit> habits = List.from([Habit(title: 'test')]);
-    List<Habit> habits2 =
-        List.from([Habit(title: 'test'), Habit(title: 'test')]);
-    Stream<List<Habit>> habitsStream = controller.stream;
     HabitRepository habitRepository = MockHabitRepository();
 
+    List<Habit> habits = [];
+    List<Habit> habits1 = [Habit(title: 'test')];
+    List<Habit> habits2 = [Habit(title: 'test'), Habit(title: 'test')];
+    List<Habit> habits3 = [Habit(title: 'test'), Habit(title: 'test'), Habit(title: 'test')];
+
     setUp(() {
-      when(habitRepository.habits())
-          .thenAnswer((realInvocation) => habitsStream);
+      habitRepository = MockHabitRepository();
+      when(habitRepository.habits()).thenAnswer((_) => Stream.fromIterable({habits}));
     });
 
-    test('test', () async {
-      final habitsBloc = new MockHabitsBloc();
-      final iterable = [
-        HabitsUpdated(habits),
-        HabitsUpdated(habits2),
-      ];
-
-      whenListen(
-        habitsBloc,
-        Stream.fromIterable(iterable),
-        initialState: HabitsLoadRequested(),
-      );
-
-      expect(habitsBloc.state, equals(HabitsLoadRequested()));
-
-      await expectLater(habitsBloc.stream, emitsInOrder(iterable));
-
-      expect(habitsBloc.state, equals(iterable[1]));
-    });
-
-    test(
+    blocTest<HabitsBloc, HabitsState>(
       'emits [HabitsLoaded] for each HabitsUpdated event added',
-      () async {
-        var bloc = HabitsBloc(habitRepository: habitRepository);
-        bloc..add(HabitsLoadRequested());
-
-        for (int x = 0; x < 4; x++) {
-          habits.add(Habit(title: 'test', id: x.toString()));
-          controller.add(habits);
-        }
-
-        await expectLater(
-            bloc.stream,
-            emitsInOrder([
-              HabitsLoaded(habits),
-              HabitsLoaded(habits),
-              HabitsLoaded(habits),
-              HabitsLoaded(habits),
-            ]));
-      },
+      build: () => HabitsBloc(habitRepository: habitRepository),
+      act: (bloc) =>
+        bloc..add(HabitsUpdated(habits1))..add(HabitsUpdated(habits2))..add(HabitsUpdated(habits3)),
+      expect: () => [HabitsLoaded(habits1), HabitsLoaded(habits2), HabitsLoaded(habits3)],
     );
-
-    tearDown(() {
-      controller.close();
-    });
   });
 }
