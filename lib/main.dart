@@ -5,6 +5,7 @@ import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/intent_theme.dart';
 import 'package:intent/repositories/habits/dummy_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
+import 'package:intent/repositories/habits/firestore_collection.dart';
 import 'package:intent/repositories/habits/habit_repository.dart';
 import 'package:intent/views/widgets/add_item_dialog.dart';
 import 'package:intent/views/widgets/habit_list.dart';
@@ -15,7 +16,7 @@ import 'constants.dart';
 
 void main() {
   final HabitRepository dummyHabitRepo = DummyHabitRepo();
-  final HabitRepository firebaseHabitRepo = FirebaseHabitRepo();
+  final HabitRepository firebaseHabitRepo = FirestoreHabitRepo(FirestoreCollection('habits'));
 
   runApp(MultiBlocProvider(
       providers: [
