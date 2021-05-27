@@ -48,7 +48,7 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
   }
 
   /// First yields a loading state, then adds the new habit to the repo
-  /// When the new habit is added the stream subscription add an updated event
+  /// When the new habit is added the stream subscription adds an updated event
   Stream<HabitsState> _handleHabitAddedEvent(HabitsEvent event) async* {
     yield HabitsLoading();
     _habitRepository.addHabit((event as HabitAdded).habit.toEntity());
