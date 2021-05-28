@@ -16,10 +16,11 @@ import 'package:logger/logger.dart';
 import 'constants.dart';
 
 void main() {
-  final HabitRepository dummyHabitRepo = DummyHabitRepo();
-  final HabitRepository firebaseHabitRepo = FirestoreHabitRepo(FirestoreCollection('habits'));
+  // TODO: Lazy load these
   final logger = Logger();
-
+  final HabitRepository dummyHabitRepo = DummyHabitRepo(logger);
+  final HabitRepository firebaseHabitRepo = FirestoreHabitRepo(FirestoreCollection('habits'));
+  
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider<HabitsBloc>(
