@@ -7,15 +7,28 @@ import 'package:intent/models/habit.dart';
 import 'package:intent/views/widgets/item_picker.dart';
 import 'package:intent/views/widgets/submission_button.dart';
 
-class HabitDetailDialog extends StatelessWidget {
-  final String title;
+enum HabitDetailDialogType {
+  create,
+  update,
+}
 
-  const HabitDetailDialog(this.title, {Key? key}) : super(key: key);
+class HabitDetailDialog extends StatefulWidget {
+  final String _title;
+  final Habit _habit;
+
+  HabitDetailDialog(this._title, this._habit, {Key? key}) : super(key: key);
+
+  @override
+  _HabitDetailDialogState createState() => _HabitDetailDialogState(_habit);
+}
+
+class _HabitDetailDialogState extends State<HabitDetailDialog> {
+  Habit _updatedHabit;
+
+  _HabitDetailDialogState(this._updatedHabit);
 
   @override
   Widget build(BuildContext context) {
-    String habitName = '';
-
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(LayoutValues.defaultBorderRadius),
@@ -32,9 +45,9 @@ class HabitDetailDialog extends StatelessWidget {
             alignment: WrapAlignment.center,
             children: [
               _buildTitleArea(),
-              _buildTitle(habitName),
+              _buildTitle(),
               _buildTypePicker(),
-              _buildButtonRow(context, habitName),
+              _buildButtonRow(),
             ],
           ),
         ),
@@ -48,13 +61,13 @@ class HabitDetailDialog extends StatelessWidget {
           top: LayoutValues.defaultPadding + 20,
           bottom: LayoutValues.defaultPadding),
       child: Text(
-        title,
+        widget._title,
         style: TextStyles.header,
       ),
     );
   }
 
-  Widget _buildTitle(String habitName) {
+  Widget _buildTitle() {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: LayoutValues.defaultPadding,
@@ -67,12 +80,12 @@ class HabitDetailDialog extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          labelText: 'Enter habit name',
+          labelText: _updatedHabit.title,
         ),
         textAlign: TextAlign.center,
         onChanged: (value) {
           // TODO: validation
-          habitName = value;
+          _updatedHabit = _updatedHabit.copyWith(title: value);
         },
       ),
     );
@@ -88,7 +101,7 @@ class HabitDetailDialog extends StatelessWidget {
     );
   }
 
-  Widget _buildButtonRow(BuildContext context, String habitName) {
+  Widget _buildButtonRow() {
     return Container(
       margin: EdgeInsets.only(top: LayoutValues.defaultPadding + 20),
       child: Row(
@@ -98,9 +111,7 @@ class HabitDetailDialog extends StatelessWidget {
           SubmissionButton(
             "Submit",
             pressed: () {
-              context
-                  .read<HabitsBloc>()
-                  .add(HabitAdded(Habit(title: habitName)));
+              context.read<HabitsBloc>().add(HabitAdded(_updatedHabit));
             },
           ),
         ],

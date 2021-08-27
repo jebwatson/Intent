@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intent/bloc/habits_bloc.dart';
 import 'package:intent/intent_theme.dart';
+import 'package:intent/models/habit.dart';
 import 'package:intent/repositories/habits/dummy_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_collection.dart';
@@ -58,7 +59,7 @@ class IntentApp extends StatelessWidget {
             showDialog(
               context: context,
               builder: (context) =>
-                  HabitDetailDialog("Let's start a new habit!"),
+                  HabitDetailDialog("Let's start a new habit!", Habit.empty()),
             );
           },
           child: const Icon(Icons.add)),

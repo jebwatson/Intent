@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intent/models/habit.dart';
 
+import 'habit_detail_dialog.dart';
+
 class HabitCard extends StatelessWidget {
   final Habit habit;
 
@@ -17,6 +19,16 @@ class HabitCard extends StatelessWidget {
         ),
         title: Text(habit.title),
         subtitle: Text(habit.timestamp),
+        onTap: () {
+          // Open the add habit dialog
+          showDialog(
+            context: context,
+            builder: (context) => HabitDetailDialog(
+              'Update your habit',
+              habit,
+            ),
+          );
+        },
       ),
     );
   }

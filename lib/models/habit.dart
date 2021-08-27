@@ -18,6 +18,8 @@ class Habit {
         this._timestamp = timestamp ?? DateTime.now(),
         this.listPosition = listPosition;
 
+  static Habit empty() => Habit(title: '');
+
   String get timestamp =>
       DateTimeFormat.format(_timestamp, format: DateTimeFormats.american);
 
