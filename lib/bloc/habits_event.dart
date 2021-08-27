@@ -20,3 +20,8 @@ class HabitAdded extends HabitsEvent {
   final Habit habit;
   HabitAdded(this.habit);
 }
+
+class HabitRemoved extends HabitsEvent {
+  final Habit habit;
+  HabitRemoved(this.habit);
+}

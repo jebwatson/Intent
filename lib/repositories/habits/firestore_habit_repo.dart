@@ -19,8 +19,11 @@ class FirestoreHabitRepo implements HabitRepository {
 
   @override
   Future<void> addHabit(HabitEntity habit) {
-    return habitCollection
-        .doc(habit.id)
-        .set(habit.toJson());
+    return habitCollection.doc(habit.id).set(habit.toJson());
+  }
+
+  @override
+  Future<void> removeHabit(HabitEntity habit) {
+    return habitCollection.doc(habit.id).delete();
   }
 }

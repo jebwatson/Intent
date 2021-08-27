@@ -21,6 +21,7 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
       HabitsLoadRequested: _handleHabitsLoadRequestedEvent,
       HabitsUpdated: _handleHabitsUpdatedEvent,
       HabitAdded: _handleHabitAddedEvent,
+      HabitRemoved: _handleHabitRemovedEvent,
     });
   }
 
@@ -52,6 +53,11 @@ class HabitsBloc extends Bloc<HabitsEvent, HabitsState> {
   Stream<HabitsState> _handleHabitAddedEvent(HabitsEvent event) async* {
     yield HabitsLoading();
     _habitRepository.addHabit((event as HabitAdded).habit.toEntity());
+  }
+
+  Stream<HabitsState> _handleHabitRemovedEvent(HabitsEvent event) async* {
+    yield HabitsLoading();
+    _habitRepository.removeHabit((event as HabitRemoved).habit.toEntity());
   }
 
   void dispose() {

@@ -15,8 +15,14 @@ enum HabitDetailDialogType {
 class HabitDetailDialog extends StatefulWidget {
   final String _title;
   final Habit _habit;
+  final HabitDetailDialogType type;
 
-  HabitDetailDialog(this._title, this._habit, {Key? key}) : super(key: key);
+  HabitDetailDialog(
+    this._title,
+    this._habit, {
+    Key? key,
+    this.type = HabitDetailDialogType.create,
+  }) : super(key: key);
 
   @override
   _HabitDetailDialogState createState() => _HabitDetailDialogState(_habit);
@@ -106,16 +112,37 @@ class _HabitDetailDialogState extends State<HabitDetailDialog> {
       margin: EdgeInsets.only(top: LayoutValues.defaultPadding + 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SubmissionButton("Cancel"),
-          SubmissionButton(
-            "Submit",
-            pressed: () {
-              context.read<HabitsBloc>().add(HabitAdded(_updatedHabit));
-            },
-          ),
-        ],
+        children: _selectButtons(),
       ),
     );
+  }
+
+  List<Widget> _selectButtons() {
+    List<Widget> buttons = widget.type == HabitDetailDialogType.update
+        ? List.from([
+            SubmissionButton("Cancel"),
+            SubmissionButton(
+              "Delete",
+              pressed: () {
+                context.read<HabitsBloc>().add(HabitRemoved(_updatedHabit));
+              },
+            ),
+            SubmissionButton(
+              "Submit",
+              pressed: () {
+                context.read<HabitsBloc>().add(HabitAdded(_updatedHabit));
+              },
+            ),
+          ])
+        : List.from([
+            SubmissionButton("Cancel"),
+            SubmissionButton(
+              "Submit",
+              pressed: () {
+                context.read<HabitsBloc>().add(HabitAdded(_updatedHabit));
+              },
+            ),
+          ]);
+    return buttons;
   }
 }

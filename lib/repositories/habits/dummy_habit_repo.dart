@@ -20,4 +20,10 @@ class DummyHabitRepo implements HabitRepository {
     _habits.add(Habit.fromEntity(habit));
     return Future.delayed(Duration(seconds: 0));
   }
+
+  @override
+  Future<void> removeHabit(HabitEntity habit) {
+    _habits.remove(Habit.fromEntity(habit));
+    return Future.delayed(Duration(seconds: 0));
+  }
 }

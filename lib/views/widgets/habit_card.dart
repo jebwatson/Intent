@@ -26,6 +26,7 @@ class HabitCard extends StatelessWidget {
             builder: (context) => HabitDetailDialog(
               'Update your habit',
               habit,
+              type: HabitDetailDialogType.update,
             ),
           );
         },

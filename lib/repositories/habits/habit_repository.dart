@@ -4,4 +4,5 @@ import 'package:intent/models/habit.dart';
 abstract class HabitRepository {
   Stream<List<Habit>> habits();
   Future<void> addHabit(HabitEntity habit);
+  Future<void> removeHabit(HabitEntity habit);
 }
