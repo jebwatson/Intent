@@ -7,7 +7,7 @@ import 'package:intent/repositories/habits/dummy_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_habit_repo.dart';
 import 'package:intent/repositories/habits/firestore_collection.dart';
 import 'package:intent/repositories/habits/habit_repository.dart';
-import 'package:intent/views/widgets/add_item_dialog.dart';
+import 'package:intent/views/widgets/habit_detail_dialog.dart';
 import 'package:intent/views/widgets/habit_list.dart';
 import 'package:intent/views/widgets/error_message.dart';
 import 'package:intent/views/widgets/loading_spinner.dart';
@@ -16,7 +16,8 @@ import 'constants.dart';
 
 void main() {
   final HabitRepository dummyHabitRepo = DummyHabitRepo();
-  final HabitRepository firebaseHabitRepo = FirestoreHabitRepo(FirestoreCollection('habits'));
+  final HabitRepository firebaseHabitRepo =
+      FirestoreHabitRepo(FirestoreCollection('habits'));
 
   runApp(MultiBlocProvider(
       providers: [
@@ -56,7 +57,8 @@ class IntentApp extends StatelessWidget {
             // Open the add habit dialog
             showDialog(
               context: context,
-              builder: (context) => AddItemDialog("Let's start a new habit!"),
+              builder: (context) =>
+                  HabitDetailDialog("Let's start a new habit!"),
             );
           },
           child: const Icon(Icons.add)),

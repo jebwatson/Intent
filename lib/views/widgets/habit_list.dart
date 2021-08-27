@@ -52,6 +52,7 @@ class _HabitsListState extends State<HabitsList> {
   }
 
   Widget _displayHabits(HabitsState state) {
+    // Perform sorting here during init
     final habits = (state as HabitsLoaded).habits;
 
     /*
